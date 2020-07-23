@@ -48,7 +48,7 @@ exports.signupCB = async function (req, res, next) {
         const newUser = {
           username: req.body.username,
           password: hashedPassword,
-          role: "user",
+          roles: ["user"],
           active: true,
         };
         const insertedUser = await users.insert(newUser);

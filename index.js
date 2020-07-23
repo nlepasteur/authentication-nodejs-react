@@ -1,5 +1,7 @@
 const express = require("express");
+const cors = require("cors");
 const morgan = require("morgan");
+const helmet = require("helmet");
 
 const app = express();
 const auth = require("./backend/api/routes/auth");
@@ -7,6 +9,12 @@ const port = process.env.PORT || 5000;
 
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(helmet());
+app.use(
+  cors({
+    origin: process.env.HOST,
+  })
+);
 
 app.use("/auth", auth);
 
