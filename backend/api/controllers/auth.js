@@ -44,6 +44,7 @@ exports.signupCB = async function (req, res, next) {
     if (!error) {
       const user = await users.findOne({ username: req.body.username });
       if (!user) {
+        console.log("I M HERE");
         const hashedPassword = await bcrypt.hash(req.body.password, 12);
         const newUser = {
           username: req.body.username,
@@ -51,7 +52,9 @@ exports.signupCB = async function (req, res, next) {
           roles: ["user"],
           active: true,
         };
+        console.log("newUser: ", newUser);
         const insertedUser = await users.insert(newUser);
+        console.log("INSERTED USER: ");
         createTokenSendResponse(insertedUser, res, next);
       } else {
         res.status(500);

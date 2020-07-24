@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "backend": "nodemon index.js",
-    "dev": "concurrently \"npm run backend\" \"cd frontend && npm run start\""
+    "dev": "concurrently \"npm run backend\" \"cd frontend && npm run start\"",
+    "build": "cd frontend && npm run build",
+    "install-client": "cd frontend && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build"
   },
   "repository": {
     "type": "git",

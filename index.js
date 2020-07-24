@@ -35,6 +35,11 @@ function errorHandler(err, req, res, next) {
 app.use(notFound);
 app.use(errorHandler);
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+
+}
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
