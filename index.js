@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const path = require("path");
 
 const app = express();
 const auth = require("./backend/api/routes/auth");
@@ -35,9 +36,11 @@ function errorHandler(err, req, res, next) {
 app.use(notFound);
 app.use(errorHandler);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('frontend/build'));
-
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+  });
 }
 
 app.listen(port, () => {
