@@ -1,21 +1,20 @@
-import getToken from "./isAuth";
+import isAuth from "./isAuth";
 
-function hasRoles(roles, stateRoles) {
+function hasRoles(roles) {
   if (roles) {
-    const token = getToken();
+    const userRoles = isAuth();
 
     if (
       roles.length > 0 &&
-      (token === null || Array.isArray(stateRoles) === false)
+      (userRoles === null || Array.isArray(userRoles) === false)
     ) {
       return false;
     }
 
     return roles.every((role) => {
-      return stateRoles.includes(role);
+      return userRoles.includes(role);
     });
   }
-  return true;
 }
 
 export default hasRoles;

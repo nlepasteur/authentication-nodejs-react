@@ -23,7 +23,7 @@ export const routes = [
     name: "dashboard",
     path: "/dashboard",
     component: Dashboard,
-    roles: "user",
+    roles: ["user"],
   },
 ];
 

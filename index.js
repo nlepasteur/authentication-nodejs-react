@@ -6,6 +6,9 @@ const path = require("path");
 
 const app = express();
 const auth = require("./backend/api/routes/auth");
+const notes = require("./backend/api/routes/notes");
+const checkTokenSetUser = require("./backend/api/middlewares/checkTokenSetUSer");
+const isLoggedIn = require("./backend/api/middlewares/isLoggedIn");
 const port = process.env.PORT || 5000;
 
 app.use(morgan("dev"));
@@ -17,7 +20,14 @@ app.use(
   })
 );
 
+app.use(checkTokenSetUser);
+
+// app.get("/", (req, res) => {
+//   res.json(req.user || []);
+// });
+
 app.use("/auth", auth);
+app.use("/api/notes", isLoggedIn, notes);
 
 function notFound(req, res, next) {
   res.status(404);

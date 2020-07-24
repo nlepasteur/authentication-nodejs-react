@@ -11,6 +11,7 @@ export const initialState = {
     title: "",
     note: "",
   },
+  notes: [],
 };
 
 export const reducer = (state, action) => {
