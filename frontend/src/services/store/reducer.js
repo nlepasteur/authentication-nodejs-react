@@ -6,7 +6,7 @@ export const initialState = {
     confirmPassword: "",
   },
   signinUp: false,
-  userIDS: {},
+  username: "",
   newNote: {
     title: "",
     note: "",
@@ -35,14 +35,10 @@ export const reducer = (state, action) => {
         ...state,
         signinUp: action.boolean,
       };
-    case "SET_USER_INFOS":
+    case "SET_USERNAME":
       return {
         ...state,
-        userIDS: {
-          username: action.username,
-          id: action.id,
-          roles: action.roles,
-        },
+        username: action.username,
       };
     case "NEW_NOTE":
       return {
@@ -52,7 +48,11 @@ export const reducer = (state, action) => {
           note: action.newNote.note,
         },
       };
-
+    case "SET_USER_NOTES":
+      return {
+        ...state,
+        notes: action.userNotes,
+      };
     default:
       return state;
   }

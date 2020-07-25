@@ -49,13 +49,13 @@ function Login() {
 
         if (req.ok) {
           dispatch({ type: "SET_SIGNINUP", boolean: false });
-          dispatch(
-            setUserInfos({
-              username: response.user.username,
-              id: response.user._id,
-              roles: response.user.roles,
-            })
-          );
+          // dispatch(
+          //   setUserInfos({
+          //     username: response.user.username,
+          //     id: response.user._id,
+          //     roles: response.user.roles,
+          //   })
+          // );
           localStorage.token = response.token;
           history.push("/dashboard");
           return;

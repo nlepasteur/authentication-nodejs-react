@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import Context from "services/store/context";
-import { newNote } from "services/store/actions";
+import { newNote, setUserNotes, setUsername } from "services/store/actions";
 
 const Dashboard = () => {
   const { state, dispatch } = useContext(Context);
@@ -11,7 +11,7 @@ const Dashboard = () => {
   const API_URL = "api/notes";
 
   useEffect(() => {
-    getNotes();
+    getUsernameAndNotes();
   }, []);
 
   function logout() {
@@ -28,7 +28,7 @@ const Dashboard = () => {
     dispatch(newNote(note));
   }
 
-  async function addNotes(e) {
+  async function addNote(e) {
     e.preventDefault();
     const req = await fetch(API_URL, {
       method: "POST",
@@ -40,7 +40,9 @@ const Dashboard = () => {
     });
 
     const response = await req.json();
-    console.log("response: ", response);
+
+    state.notes.push(response);
+
     dispatch(
       newNote({
         title: "",
@@ -49,22 +51,32 @@ const Dashboard = () => {
     );
   }
 
-  async function getNotes() {
+  async function getUsernameAndNotes() {
     const req = await fetch(API_URL, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     const response = await req.json();
-    console.log("response from get notes: ", response);
+    dispatch(setUsername(response.user.username));
+    dispatch(setUserNotes(response.userNotes));
+  }
+
+  function renderNotes() {
+    return state.notes.map((note, index) => (
+      <div key={index}>
+        <div>{note.title}</div>
+        <div>{note.note}</div>
+      </div>
+    ));
   }
 
   return (
     <div>
       <button onClick={logout}>Logout</button>
       Dashboard
-      <div>Welcome {state.userIDS.username}</div>
-      <form onSubmit={addNotes}>
+      {state.username && <div>Welcome {state.username}</div>}
+      <form onSubmit={addNote}>
         <label>Title</label>
         <input
           value={state.newNote.title}
@@ -85,6 +97,7 @@ const Dashboard = () => {
         />
         <input type="submit"></input>
       </form>
+      {state.notes && renderNotes()}
     </div>
   );
 };

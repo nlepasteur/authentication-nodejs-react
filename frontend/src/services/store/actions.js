@@ -20,15 +20,6 @@ export const setSigninup = (boolean) => {
   };
 };
 
-export const setUserInfos = ({ username, id, roles }) => {
-  return {
-    type: "SET_USER_INFOS",
-    username,
-    id,
-    roles,
-  };
-};
-
 export const newNote = ({ title, note }) => {
   return {
     type: "NEW_NOTE",
@@ -36,5 +27,19 @@ export const newNote = ({ title, note }) => {
       title,
       note,
     },
+  };
+};
+
+export const setUsername = (username) => {
+  return {
+    type: "SET_USERNAME",
+    username,
+  };
+};
+
+export const setUserNotes = (userNotes) => {
+  return {
+    type: "SET_USER_NOTES",
+    userNotes,
   };
 };

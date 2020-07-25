@@ -2,14 +2,12 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import Context from "services/store/context";
-import {
-  setInput,
-  setErrorMessage,
-  setUserInfos,
-} from "services/store/actions";
+import { setInput, setErrorMessage } from "services/store/actions";
 import validatePassword from "utils/validatePassword";
 
 import { ReactComponent as Spin } from "assets/spin.svg";
+
+import "./Signup.scss";
 
 const SIGNUP_URL = "/auth/signup";
 
@@ -57,15 +55,8 @@ const Signup = () => {
         let response = await req.json();
 
         if (req.ok) {
-          console.log("RESPONSE: ", response);
           dispatch({ type: "SET_SIGNINUP", boolean: false });
-          dispatch(
-            setUserInfos({
-              username: response.user.username,
-              id: response.user._id,
-              roles: response.user.roles,
-            })
-          );
+
           localStorage.token = response.token;
           history.push("/dashboard");
           return;
@@ -95,10 +86,10 @@ const Signup = () => {
   }
 
   return (
-    <div>
+    <div className="signup-wrapper">
       {state.signinUp ? <Spin /> : null}
       <div>{state.errorMessage}</div>
-      {state.signinUp ? null : (
+      {!state.signinUp && (
         <form onSubmit={signup}>
           <div className="field">
             <input
@@ -110,14 +101,12 @@ const Signup = () => {
               onChange={setInputs}
               value={state.signupFormInputs.username}
             />
-            {/* ariaDescribedly="usernameHelp" */}
-            <label htmlFor="username" className="label">
-              Username
-            </label>
+            <div className="label-wrapper">
+              <label htmlFor="username" className="label">
+                Username
+              </label>
+            </div>
           </div>
-          {/* <!-- <small id="usernameHelp" className="form-text text-muted">Username must be longer than 2 characters and shorter than */}
-          {/* 30. Username can only contain
-  alphanumeric characters and under_scores</small> --> */}
 
           <div className="field">
             <input
@@ -129,13 +118,12 @@ const Signup = () => {
               onChange={setInputs}
               value={state.signupFormInputs.password}
             />
-            {/* ariaDescribedby="passwordHelp" */}
-            <label htmlFor="password" className="label">
-              Password
-            </label>
-            <span className="showPassword">SHOW PASSWORD</span>
+            <div className="label-wrapper">
+              <label htmlFor="password" className="label">
+                Password
+              </label>
+            </div>
           </div>
-          {/* <!-- <small id="passwordHelp" className="form-text text-muted">Password must be longer than 10 characters.</small> --> */}
 
           <div className="field">
             <input
@@ -147,19 +135,18 @@ const Signup = () => {
               onChange={setInputs}
               value={state.signupFormInputs.confirmPassword}
             />
-            {/* ariaDescribedby="confirmPasswordhelp" */}
-            <label htmlFor="confirmPassword" className="label">
-              Confirm Password
-            </label>
+            <div className="label-wrapper">
+              <label htmlFor="confirmPassword" className="label">
+                Confirm Password
+              </label>
+            </div>
           </div>
-          {/* <!-- <small id="confirmPasswordHelp" className="form-text text-muted">Please confirm your password.</small> --> */}
 
           <div className="strength">
             <span className="bar bar-1"></span>
             <span className="bar bar-2"></span>
             <span className="bar bar-3"></span>
             <span className="bar bar-4"></span>
-            {/* <!-- className:bar-show={strength> 3} --> */}
           </div>
 
           <ul>

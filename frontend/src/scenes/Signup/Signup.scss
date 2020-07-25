@@ -1,0 +1,50 @@
+.signup-wrapper {
+  background-color: #fff;
+  height: 600px;
+  width: 480px;
+  margin: auto;
+  padding: 40px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.field {
+  height: 38px;
+  width: 100%;
+  margin-bottom: 1rem;
+  position: relative;
+
+  &.field:focus-within .label-wrapper,
+  .input:not(:placeholder-shown) + .label-wrapper {
+    background-color: #fff;
+    height: 50%;
+    padding: 0 0.1rem;
+    left: 0.9rem;
+    font-size: 0.8rem;
+    transform: translateY(-9.5px);
+  }
+
+  .input {
+    height: 100%;
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+  }
+
+  .label-wrapper {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    pointer-events: none;
+    transform-origin: 0%;
+    transition: all 0.2s ease-in;
+  }
+}
