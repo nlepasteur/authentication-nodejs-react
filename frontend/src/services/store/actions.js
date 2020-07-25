@@ -43,3 +43,10 @@ export const setUserNotes = (userNotes) => {
     userNotes,
   };
 };
+
+export const setValidations = (validations) => {
+  return {
+    type: "SET_VALIDATIONS",
+    validations,
+  };
+};

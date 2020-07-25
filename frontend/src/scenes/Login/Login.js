@@ -70,7 +70,7 @@ function Login() {
   }
 
   function validUser() {
-    if (validatePassword(state.signupFormInputs.password)) {
+    if (validatePassword(state.signupFormInputs.password).strength) {
       return true;
     } else {
       dispatch(setErrorMessage("Password is invalid"));

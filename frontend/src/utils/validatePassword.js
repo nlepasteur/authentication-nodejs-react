@@ -8,7 +8,7 @@ const validatePassword = (password) => {
 
   const strength = validations.reduce((acc, cur) => acc + cur);
 
-  return strength;
+  return { strength, validations };
 };
 
 export default validatePassword;

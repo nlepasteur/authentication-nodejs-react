@@ -12,6 +12,7 @@ export const initialState = {
     note: "",
   },
   notes: [],
+  validations: [],
 };
 
 export const reducer = (state, action) => {
@@ -52,6 +53,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         notes: action.userNotes,
+      };
+    case "SET_VALIDATIONS":
+      return {
+        ...state,
+        validations: action.validations,
       };
     default:
       return state;

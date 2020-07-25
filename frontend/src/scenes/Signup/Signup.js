@@ -2,10 +2,15 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import Context from "services/store/context";
-import { setInput, setErrorMessage } from "services/store/actions";
+import {
+  setInput,
+  setErrorMessage,
+  setValidations,
+} from "services/store/actions";
 import validatePassword from "utils/validatePassword";
 
 import { ReactComponent as Spin } from "assets/spin.svg";
+import { ReactComponent as Validation } from "assets/validation.svg";
 
 import "./Signup.scss";
 
@@ -18,6 +23,16 @@ const Signup = () => {
   function setInputs(e) {
     const value = e.target.value.replace(" ", "");
     dispatch(setInput(e.target.name, value));
+    //
+    // const validations = document.querySelectorAll("li");
+    if (e.target.name === "password") {
+      console.log(
+        "validatePassword(e.target.value).validations",
+        validatePassword(e.target.value).validations
+      );
+      dispatch(setValidations(validatePassword(e.target.value).validations));
+    }
+    //
     if (
       state.errorMessage &&
       state.errorMessage.includes("word") &&
@@ -77,7 +92,7 @@ const Signup = () => {
       dispatch(setErrorMessage("Passwords do not match."));
       return false;
     }
-    if (validatePassword(state.signupFormInputs.password)) {
+    if (validatePassword(state.signupFormInputs.password).strength) {
       return true;
     } else {
       dispatch(setErrorMessage("Password is invalid"));
@@ -85,10 +100,12 @@ const Signup = () => {
     }
   }
 
+  console.log("STATE: ", state);
+
   return (
     <div className="signup-wrapper">
       {state.signinUp ? <Spin /> : null}
-      <div>{state.errorMessage}</div>
+
       {!state.signinUp && (
         <form onSubmit={signup}>
           <div className="field">
@@ -107,6 +124,9 @@ const Signup = () => {
               </label>
             </div>
           </div>
+          {state.errorMessage.includes("username") && (
+            <div className="error">{state.errorMessage}</div>
+          )}
 
           <div className="field">
             <input
@@ -124,6 +144,9 @@ const Signup = () => {
               </label>
             </div>
           </div>
+          {state.errorMessage.includes("word") && (
+            <div className="error">{state.errorMessage}</div>
+          )}
 
           <div className="field">
             <input
@@ -142,18 +165,39 @@ const Signup = () => {
             </div>
           </div>
 
-          <div className="strength">
-            <span className="bar bar-1"></span>
-            <span className="bar bar-2"></span>
-            <span className="bar bar-3"></span>
-            <span className="bar bar-4"></span>
-          </div>
-
           <ul>
-            <li> must be at least 5 characters</li>
-            <li> must contain a capital letters</li>
-            <li> must contain a number</li>
-            <li> must contain one of $&+,:;=?@#</li>
+            {state.validations[0] ? (
+              <li className="valid">
+                <Validation />
+                must be at least 5 characters
+              </li>
+            ) : (
+              <li>must be at least 5 characters</li>
+            )}
+            {state.validations[1] ? (
+              <li className="valid">
+                <Validation />
+                must contain a capital letters
+              </li>
+            ) : (
+              <li>must contain a capital letters</li>
+            )}
+            {state.validations[2] ? (
+              <li className="valid">
+                <Validation />
+                must contain a number
+              </li>
+            ) : (
+              <li> must contain a number</li>
+            )}
+            {state.validations[3] ? (
+              <li className="valid">
+                <Validation />
+                must contain one of $&+,:;=?@#
+              </li>
+            ) : (
+              <li>must contain one of $&+,:;=?@#</li>
+            )}
           </ul>
 
           <input type="submit" />
