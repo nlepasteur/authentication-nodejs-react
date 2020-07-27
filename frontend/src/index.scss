@@ -8,3 +8,18 @@
   background-color: #F7F7F7;
   height: 100vh;
 }
+
+button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: black;
+
+}

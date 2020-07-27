@@ -1,0 +1,39 @@
+$button-text-grey: #444;
+$border-lightgrey: lightgrey;
+
+a:hover,
+button:hover {
+  color: $button-text-grey;
+}
+
+.navbar-wrapper {
+  height: 60px;
+  background-color: #fff;
+  border: 1px solid $border-lightgrey;
+  display: flex;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+
+  div {
+    padding: 1rem;
+  }
+
+  .logged {
+    margin-left: auto;
+    padding: 1rem;
+    display: flex;
+
+    div {
+      padding: 0;
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      padding-left: 1rem;
+    }
+  }
+
+}

@@ -1,13 +1,18 @@
 .signup-wrapper {
   background-color: #fff;
-  height: 600px;
   width: 480px;
   margin: auto;
   padding: 40px;
   position: relative;
-  top: 50%;
+  top: calc(50% - 60px);
   transform: translateY(-50%);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .field {
@@ -17,7 +22,7 @@
   position: relative;
 
   &.field:focus-within .label-wrapper,
-  .input:not(:placeholder-shown) + .label-wrapper {
+  .input:not(:placeholder-shown)+.label-wrapper {
     background-color: #fff;
     height: 50%;
     padding: 0 0.1rem;
@@ -32,6 +37,7 @@
     padding: 0.9rem;
     border: 1px solid lightgrey;
     border-radius: 4px;
+    font-size: 1rem;
   }
 
   .label-wrapper {
@@ -49,7 +55,14 @@
   }
 }
 
+.validations-head {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
 ul {
+  margin-bottom: 1rem;
   position: relative;
   left: 50%;
   transform: translateX(-25%);
@@ -66,29 +79,29 @@ ul {
 }
 
 input[type="submit"] {
+  margin-top: auto;
   font-size: 1rem;
   cursor: pointer;
   height: 38px;
   width: 100%;
   background-color: transparent;
-  background-image: linear-gradient(
-    -180deg,
-    rgba(255, 255, 255, 0.09) 0%,
-    rgba(17, 17, 17, 0.04) 100%
-  );
+  background-image: linear-gradient(-180deg,
+      rgba(255, 255, 255, 0.09) 0%,
+      rgba(17, 17, 17, 0.04) 100%);
   border: 1px solid rgba(22, 22, 22, 0.2);
   color: #444;
 
   &:hover {
-    background-image: linear-gradient(
-      -180deg,
-      rgba(255, 255, 255, 0.18) 0%,
-      rgba(17, 17, 17, 0.08) 100%
-    );
+    background-image: linear-gradient(-180deg,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(17, 17, 17, 0.08) 100%);
     color: #111;
   }
 }
 
 .error {
-  height: 38px;
+  margin-bottom: 1rem;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 300;
+  color: red;
 }

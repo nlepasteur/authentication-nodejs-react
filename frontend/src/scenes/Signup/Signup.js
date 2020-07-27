@@ -165,6 +165,10 @@ const Signup = () => {
             </div>
           </div>
 
+          <div className="validations-head">
+            In order to protect your account, make sure your password:
+          </div>
+
           <ul>
             {state.validations[0] ? (
               <li className="valid">

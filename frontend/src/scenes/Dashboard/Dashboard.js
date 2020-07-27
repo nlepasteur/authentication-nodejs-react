@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import Context from "services/store/context";
 import { newNote, setUserNotes, setUsername } from "services/store/actions";
 
+import "./Dashboard.scss";
+
 const Dashboard = () => {
   const { state, dispatch } = useContext(Context);
   const history = useHistory();
@@ -72,11 +74,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
-      <button onClick={logout}>Logout</button>
-      Dashboard
-      {state.username && <div>Welcome {state.username}</div>}
-      <form onSubmit={addNote}>
+    <div className="dashboard-wrapper">
+      <form onSubmit={addNote} className="form-wrapper">
         <label>Title</label>
         <input
           value={state.newNote.title}

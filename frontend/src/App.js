@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import Route from "./services/routes/Route";
 import NotFound from "./components/NotFound/NotFound";
+import Nav from "./components/Nav/Nav";
 
 import Context from "./services/store/context";
 
@@ -16,6 +17,7 @@ function App() {
   return (
     <Context.Provider value={{ state, dispatch }}>
       <Router>
+        <Nav />
         <Switch>
           {getRoutes().map((route, index) => {
             return <Route exact {...route} key={index} />;
