@@ -3,8 +3,11 @@ const notes = db.get("notes");
 
 exports.getNotesCB = async (req, res, next) => {
   let { skip = 0, limit = 5, sort = "desc" } = req.query;
+  console.log("skip: ", skip, "limit: ", limit);
   skip = parseInt(skip) || 0;
   limit = parseInt(limit) || 5;
+
+  console.log("skip: ", skip, "limit: ", limit);
 
   // version .then()
 

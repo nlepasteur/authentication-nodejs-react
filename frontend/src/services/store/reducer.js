@@ -50,9 +50,10 @@ export const reducer = (state, action) => {
         },
       };
     case "SET_USER_NOTES":
+      console.log("state.note", state.notes);
       return {
         ...state,
-        notes: action.userNotes,
+        notes: [...state.notes, ...action.userNotes],
       };
     case "SET_VALIDATIONS":
       return {

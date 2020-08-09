@@ -1,25 +1,30 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import Context from "services/store/context";
 import { newNote, setUserNotes, setUsername } from "services/store/actions";
+
+import Note from "./Note/Note";
 
 import "./Dashboard.scss";
 
 const Dashboard = () => {
   const { state, dispatch } = useContext(Context);
   const history = useHistory();
+  let [skip, setSkip] = useState(0);
+  let [limit, setLimit] = useState(2);
+  let [finished, setFinished] = useState(false);
 
-  const API_URL = "api/notes";
+  const API_URL = `api/notes?skip=${skip}&limit=${limit}`;
 
   useEffect(() => {
     getUsernameAndNotes();
   }, []);
 
-  function logout() {
-    localStorage.removeItem("token");
-    history.push("/login");
-  }
+  // function logout() {
+  //   localStorage.removeItem("token");
+  //   history.push("/login");
+  // }
 
   function controlInputs(e) {
     const target = e.target.name;
@@ -54,23 +59,30 @@ const Dashboard = () => {
   }
 
   async function getUsernameAndNotes() {
+    console.log("SKIP: ", skip);
     const req = await fetch(API_URL, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     const response = await req.json();
+    console.log("RESPONSE: ", response);
+    if (response.pagination.has_more) {
+      console.log(response.pagination.has_more);
+    } else {
+      setFinished(true);
+    }
     dispatch(setUsername(response.user.username));
     dispatch(setUserNotes(response.userNotes));
   }
 
   function renderNotes() {
-    return state.notes.map((note, index) => (
-      <div key={index}>
-        <div>{note.title}</div>
-        <div>{note.note}</div>
-      </div>
-    ));
+    return state.notes.map((note, index) => <Note key={index} note={note} />);
+  }
+
+  function loadMore() {
+    setSkip((skip += limit));
+    getUsernameAndNotes();
   }
 
   return (
@@ -97,6 +109,8 @@ const Dashboard = () => {
         <input type="submit"></input>
       </form>
       {state.notes && renderNotes()}
+
+      {!finished && <button onClick={loadMore}>Load more</button>}
     </div>
   );
 };

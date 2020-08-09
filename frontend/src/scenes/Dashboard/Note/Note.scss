@@ -1,0 +1,17 @@
+.Note {
+  background-color: rgb(240, 240, 240);
+  min-height: 100px;
+  margin-top: 1em;
+  padding: .5em;
+  font-family: "Source Sans Pro", sans-serif;
+
+  .Note__title {
+    font-weight: 600;
+    text-transform: uppercase;
+
+  }
+
+  .Note__note {
+    font-weight: 300;
+  }
+}
